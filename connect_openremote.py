@@ -28,6 +28,12 @@ temperature_topic = os.environ['TEMPERATURE_TOPIC']
 pressure_topic = os.environ['PRESSURE_TOPIC']
 proximity_topic = os.environ['PROXIMITY_TOPIC']
 motion_topic = os.environ['MOTION_TOPIC']
+accX_topic = os.environ['ACCELERATION_X_TOPIC']
+accY_topic = os.environ['ACCELERATION_Y_TOPIC']
+accZ_topic = os.environ['ACCELERATION_Z_TOPIC']
+gyroX_topic = os.environ['GYROSCOPE_X_TOPIC']
+gyroY_topic = os.environ['GYROSCOPE_Y_TOPIC']
+gyroZ_topic = os.environ['GYROSCOPE_Z_TOPIC']
 red_topic = os.environ['COLOR_RED_TOPIC']
 blue_topic = os.environ['COLOR_BLUE_TOPIC']
 green_topic = os.environ['COLOR_GREEN_TOPIC']
@@ -164,6 +170,13 @@ try:
                 client.publish(publish_topic + blue_topic + asset_id, round(avgBlue))
                 client.publish(publish_topic + alpha_topic + asset_id, round(avgAlpha))
                 client.publish(publish_topic + motion_topic + asset_id, json.dumps(motion_data))
+                #for creating motion insigths only
+                client.publish(publish_topic + accX_topic + asset_id, motion_data['aX'])
+                client.publish(publish_topic + accY_topic + asset_id, motion_data['aY'])
+                client.publish(publish_topic + accZ_topic + asset_id, motion_data['aZ'])
+                client.publish(publish_topic + gyroX_topic + asset_id, motion_data['gX'])
+                client.publish(publish_topic + gyroY_topic + asset_id, motion_data['gY'])
+                client.publish(publish_topic + gyroZ_topic + asset_id, motion_data['gZ'])
 
                 if round(avgProximity) < 128:
                     detected_person.append(round(avgProximity))
